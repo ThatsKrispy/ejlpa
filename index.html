@@ -197,7 +197,7 @@ p{margin:0 0 1.1em}
 .to-top:hover{transform:translateY(-2px);border-color:var(--gold)}
 .to-top svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2}
 
-.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.reviews-loading{color:var(--grey);font-size:.95rem;padding:2rem 0;text-align:center;letter-spacing:.04em}
 .quote{background:var(--ink-2);border:1px solid var(--line);border-radius:var(--r);padding:1.8rem}
 .quote .stars{color:var(--gold);letter-spacing:.15em;font-size:.9rem;margin-bottom:.9rem}
 .quote p{color:#cfd4da;font-size:.98rem;margin:0}
@@ -286,7 +286,7 @@ p{margin:0 0 1.1em}
   .thesis,.attorney,.contact-grid{grid-template-columns:1fr}
   .attorney-photo{max-width:420px}
   .stats{grid-template-columns:repeat(2,1fr)}
-  .vals,.quotes{grid-template-columns:1fr}
+  .vals{grid-template-columns:1fr}
   .footer .top{grid-template-columns:1fr 1fr}
   .team{grid-template-columns:1fr 1fr}
 }
@@ -449,6 +449,7 @@ body.a11y-hideimg :is(.hero-media,.thesis-media,.attorney-photo,.member .ph){bac
   <div id="google-reviews">
     <script src="https://elfsightcdn.com/platform.js" async></script>
     <div class="elfsight-app-038ee217-17a2-4148-9b3d-1fab6d8677b6" data-elfsight-app-lazy></div>
+    <noscript><p class="reviews-loading">Enable JavaScript to view client reviews.</p></noscript>
   </div></div></section>
 
 <section class="section section--bone" id="faq"><div class="wrap">
