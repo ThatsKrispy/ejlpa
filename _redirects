@@ -1,0 +1,7 @@
+# Legacy WordPress service URLs -> Practice section on the single page
+/service/*    /index.html#practice    301
+/services     /index.html#practice    301
+/about        /index.html#about       301
+/practice     /index.html#practice    301
+/faq          /index.html#faq         301
+/contact      /index.html#contact     301
