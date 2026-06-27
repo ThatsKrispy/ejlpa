@@ -89,7 +89,7 @@ p{margin:0 0 1.1em}
 .grating{display:inline-flex;align-items:center;gap:.4em;font-size:.82rem}
 .grating-stars{color:var(--gold);letter-spacing:.05em;font-size:.9rem}
 .grating-text{color:#aab0b8}
-@media (max-width:680px){.util-l a:first-child{display:none}.grating-text{display:none}}
+@media (max-width:680px){.util{display:none}}
 
 .mast{position:sticky;top:0;z-index:100;background:rgba(251,250,247,.88);backdrop-filter:blur(10px);
   border-bottom:1px solid #e9e3d7}
@@ -121,8 +121,8 @@ p{margin:0 0 1.1em}
 .hero-media::after{content:"";position:absolute;inset:0;
   background:linear-gradient(90deg,var(--ink) 0%,rgba(15,23,34,.5) 30%,rgba(15,23,34,.08) 62%,transparent 100%)}
 .hero-strip{position:relative;z-index:2;background:var(--ink-2);border-top:1px solid var(--line)}
-.hero-strip .wrap{display:flex;flex-wrap:wrap;gap:1.4rem 2.5rem;padding-block:1.1rem;align-items:center;
-  justify-content:center;color:#aeb6bf;font-size:.86rem}
+.hero-strip .wrap{display:flex;flex-wrap:wrap;gap:.9rem 2rem;padding-block:1rem;align-items:center;
+  justify-content:center;color:#aeb6bf;font-size:.84rem}
 .hero-strip b{color:var(--gold);font-weight:600}
 .hero-strip .dot{width:4px;height:4px;border-radius:50%;background:var(--line)}
 
@@ -203,12 +203,16 @@ p{margin:0 0 1.1em}
 .to-top:hover{transform:translateY(-2px);border-color:var(--gold)}
 .to-top svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2}
 
-.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
-.reviews-loading{color:var(--grey);font-size:.95rem;padding:2rem 0;text-align:center;letter-spacing:.04em}
-.quote{background:var(--ink-2);border:1px solid var(--line);border-radius:var(--r);padding:1.8rem}
-.quote .stars{color:var(--gold);letter-spacing:.15em;font-size:.9rem;margin-bottom:.9rem}
-.quote p{color:#cfd4da;font-size:.98rem;margin:0}
-.quote .who{color:var(--bone);font-weight:600;font-size:.9rem;margin-top:1rem}
+.testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.5rem,3vw,3rem);margin-top:2.5rem;align-items:start}
+.testi{margin:0;padding:0;position:relative}
+.testi--center{border-left:1px solid var(--line);border-right:1px solid var(--line);padding-inline:clamp(1rem,2.5vw,2.5rem)}
+.testi-stars{color:var(--gold);font-size:.85rem;letter-spacing:.2em;margin-bottom:1.1rem}
+.testi-quote{font-family:var(--serif);font-size:clamp(1.1rem,1rem+.6vw,1.35rem);line-height:1.45;color:var(--bone);font-weight:400;font-style:normal;margin:0 0 1.2rem}
+.testi-source{font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:0}
+@media (max-width:760px){
+  .testimonials{grid-template-columns:1fr;gap:2rem}
+  .testi--center{border-left:none;border-right:none;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:1.8rem 0}
+}
 
 .cta-band{position:relative;background:var(--slate);overflow:hidden}
 .cta-band .wrap{position:relative;z-index:2;text-align:center;padding-block:clamp(3rem,6vw,5.5rem)}
@@ -288,17 +292,20 @@ p{margin:0 0 1.1em}
 @media (max-width:980px){
   .hero-grid{grid-template-columns:1fr;min-height:auto}
   .hero-media{height:clamp(280px,42vh,420px);order:-1}
-  .hero-media::after{background:linear-gradient(0deg,var(--ink) 0%,rgba(15,23,34,.3) 50%,rgba(15,23,34,.15) 100%)}
+  .hero-media::after{background:linear-gradient(0deg,var(--ink) 0%,rgba(15,23,34,.4) 40%,rgba(15,23,34,.1) 100%)}
   .hero-copy .in{margin-inline:auto;max-width:40rem}
-  .hero-copy{padding-bottom:5rem}
+  .hero-copy{padding:2rem var(--gut) 3rem}
+  .hero-media{height:clamp(340px,52vw,480px)}
   .thesis,.attorney,.contact-grid{grid-template-columns:1fr}
   .attorney-photo{max-width:420px}
   .stats{grid-template-columns:repeat(2,1fr)}
-  .vals,.quotes{grid-template-columns:1fr}
+  .vals{grid-template-columns:1fr}
   .footer .top{grid-template-columns:1fr 1fr}
   .team{grid-template-columns:1fr 1fr}
 }
 @media (max-width:680px){
+  .hero-cta{flex-direction:column}
+  .hero-cta .btn{width:100%;justify-content:center}
   .nav ul,.nav .nav-cta{display:none}
   .nav.open ul{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--paper);
     border-bottom:1px solid #e9e3d7;padding:1rem var(--gut);gap:.2rem}
@@ -452,22 +459,28 @@ body.a11y-hideimg :is(.hero-media,.thesis-media,.attorney-photo,.member .ph){bac
   <p style="max-width:70ch;margin-top:2.2rem;color:#c3c9d0">As the firm's paralegal, Genesis Williams provides invaluable support to both our team and our clients; her interest in real estate and dedication to client satisfaction make her an essential part of the Lichter Law Group. We're also passionate about giving back — engaging in pro bono work and community initiatives across the South Florida that raised us.</p>
 </div></section>
 
-<section class="section section--ink"><div class="wrap">
-  <div class="kicker eyebrow eyebrow--light">In their words</div><h2 style="margin-bottom:2.2rem">Clients who felt represented.</h2>
-  <div id="google-reviews" class="quotes">
-    <figure class="quote">
-      <div class="stars" aria-hidden="true">★★★★★</div>
-      <blockquote><p>Erik treated my matter like it mattered. Responsive, straight with me, and completely in my corner. I never felt like just another client.</p></blockquote>
-    </figure>
-    <figure class="quote">
-      <div class="stars" aria-hidden="true">★★★★★</div>
-      <blockquote><p>The whole process was clear from day one. I always knew what was happening with my case. Erik and his team are the real deal.</p></blockquote>
-    </figure>
-    <figure class="quote">
-      <div class="stars" aria-hidden="true">★★★★★</div>
-      <blockquote><p>Professional, knowledgeable, and personal. Exactly what you want when the stakes are high. Highly recommend The Lichter Law Group.</p></blockquote>
-    </figure>
-  </div></div></section>
+<section class="section section--ink">
+  <div class="wrap">
+    <div class="kicker eyebrow eyebrow--light">Client voices</div>
+    <div class="testimonials">
+      <figure class="testi">
+        <div class="testi-stars" aria-hidden="true">★★★★★</div>
+        <blockquote class="testi-quote">"Erik treated my matter like it mattered. Responsive, straight with me, and completely in my corner."</blockquote>
+        <figcaption class="testi-source">Real Estate Client</figcaption>
+      </figure>
+      <figure class="testi testi--center">
+        <div class="testi-stars" aria-hidden="true">★★★★★</div>
+        <blockquote class="testi-quote">"The whole process was clear from day one. I always knew what was happening with my case."</blockquote>
+        <figcaption class="testi-source">Criminal Defense Client</figcaption>
+      </figure>
+      <figure class="testi">
+        <div class="testi-stars" aria-hidden="true">★★★★★</div>
+        <blockquote class="testi-quote">"Professional, knowledgeable, and personal. Exactly what you want when the stakes are high."</blockquote>
+        <figcaption class="testi-source">Business Client</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
 
 <section class="section section--bone" id="faq"><div class="wrap">
   <div class="kicker eyebrow">Questions</div><h2 style="margin-bottom:1.5rem">Answered.</h2>
@@ -506,7 +519,7 @@ body.a11y-hideimg :is(.hero-media,.thesis-media,.attorney-photo,.member .ph){bac
   <p class="disclaimer-mini">The information on this site is for general purposes and is not legal advice; viewing it or contacting the firm does not create an attorney–client relationship. Past results do not guarantee a similar outcome. This may be considered attorney advertising under The Florida Bar rules.</p>
 </div></footer>
 <div class="consent" id="consent" role="dialog" aria-label="Cookie consent">
-  <p>We use essential cookies to run this site. With your consent we may also load services like Google reviews. See our <a href="privacy.html">Privacy Policy</a>.</p>
+  <p>We use essential cookies to keep this site running. See our <a href="privacy.html">Privacy Policy</a>.</p>
   <div class="row"><button class="btn btn--gold" id="c-accept">Accept all</button><button class="btn btn--on-dark" id="c-decline">Decline non-essential</button></div></div>
 <button class="to-top" aria-label="Back to top"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <button class="a11y-fab" aria-label="Accessibility options" aria-expanded="false" aria-controls="a11y-panel"><svg viewBox="0 0 24 24"><circle cx="12" cy="3.8" r="2"/><path d="M21 8.5c0 .6-.5 1-1 1-1.6.1-3.7.2-5 .3v3.4c0 1 .2 2 .5 3l1.4 4.2c.2.6-.1 1.2-.7 1.4-.6.2-1.2-.1-1.4-.7l-1.5-4.6c-.1-.4-.7-.4-.8 0L11 21.6c-.2.6-.8.9-1.4.7-.6-.2-.9-.8-.7-1.4L10.3 17c.3-1 .5-2 .5-3v-3.4c-1.3-.1-3.4-.2-5-.3-.6 0-1-.5-1-1 0-.6.5-1 1.1-1 2.3.1 4.7.2 6.1.2s3.8-.1 6.1-.2c.6 0 1.1.4 1.1 1z"/></svg></button>
