@@ -27,6 +27,7 @@
 <link rel="alternate" hreflang="en-us" href="https://www.ejlpa.com/">
 <meta name="theme-color" content="#0f1722">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@400;500;600;700&display=swap">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -49,6 +50,9 @@ img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 h1,h2,h3,h4{font-family:var(--serif);font-weight:430;line-height:1.04;letter-spacing:-.012em;margin:0}
 h1{font-size:clamp(2.6rem,1.6rem + 4.4vw,5rem)}
+.hero h1 em{background:linear-gradient(90deg,var(--gold) 0%,#e8c97a 40%,var(--gold-deep) 70%,var(--gold) 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 4s linear infinite}
+@keyframes shimmer{0%{background-position:0% center}100%{background-position:200% center}}
+@media (prefers-reduced-motion:reduce){.hero h1 em{animation:none}}
 h2{font-size:clamp(2rem,1.4rem + 2.6vw,3.3rem)}
 h3{font-size:clamp(1.3rem,1.1rem + .9vw,1.7rem)}
 p{margin:0 0 1.1em}
@@ -58,7 +62,10 @@ p{margin:0 0 1.1em}
 .lede{font-size:clamp(1.12rem,1rem + .6vw,1.4rem);line-height:1.55;color:#46505c;font-weight:400}
 .measure{max-width:62ch}
 .kicker{display:flex;align-items:center;gap:.8rem;margin-bottom:1.3rem}
-.kicker::after{content:"";height:1px;flex:1;background:currentColor;opacity:.18}
+.kicker::after{content:"";height:1px;flex:1;background:currentColor;opacity:.18;transform-origin:left;animation:none}
+.kicker.in::after{animation:kline .8s ease forwards}
+@keyframes kline{from{transform:scaleX(0);opacity:0}to{transform:scaleX(1);opacity:.18}}
+@media (prefers-reduced-motion:reduce){.kicker.in::after{animation:none}}
 
 .btn{display:inline-flex;align-items:center;gap:.6em;font-weight:600;font-size:.93rem;
   padding:.92em 1.5em;border-radius:var(--r);border:1px solid var(--ink);background:var(--ink);
@@ -91,8 +98,9 @@ p{margin:0 0 1.1em}
 .grating-text{color:#aab0b8}
 @media (max-width:680px){.util{display:none}}
 
-.mast{position:sticky;top:0;z-index:100;background:rgba(251,250,247,.88);backdrop-filter:blur(10px);
-  border-bottom:1px solid #e9e3d7}
+.mast{position:sticky;top:0;z-index:100;background:rgba(251,250,247,.9);backdrop-filter:blur(14px) saturate(1.4);
+  border-bottom:1px solid rgba(201,162,94,.15);transition:box-shadow .3s}
+.mast.scrolled{box-shadow:0 2px 24px rgba(15,23,34,.08)}
 .mast .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:.85rem}
 .brand{display:flex;align-items:center;gap:.7rem}
 .brand .crest{width:34px;height:34px;color:var(--gold-deep)}
@@ -120,7 +128,7 @@ p{margin:0 0 1.1em}
 @media (max-width:980px){.hero-media img{object-position:center 15%}}
 .hero-media::after{content:"";position:absolute;inset:0;
   background:linear-gradient(90deg,var(--ink) 0%,rgba(15,23,34,.5) 30%,rgba(15,23,34,.08) 62%,transparent 100%)}
-.hero-strip{position:relative;z-index:2;background:var(--ink-2);border-top:1px solid var(--line)}
+.hero-strip{position:relative;z-index:2;background:var(--ink-2);border-top:1px solid var(--line);overflow:hidden}
 .hero-strip .wrap{display:flex;flex-wrap:wrap;gap:.9rem 2rem;padding-block:1rem;align-items:center;
   justify-content:center;color:#aeb6bf;font-size:.84rem}
 .hero-strip b{color:var(--gold);font-weight:600}
@@ -139,12 +147,15 @@ p{margin:0 0 1.1em}
   font-size:.78rem;padding:.5em .9em;border-radius:var(--r);border-left:2px solid var(--gold)}
 
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
-.stat{background:var(--ink);padding:2rem 1.4rem;text-align:center}
+.stat{background:var(--ink);padding:2rem 1.4rem;text-align:center;transition:transform .3s}
+.stat:hover{transform:translateY(-3px)}
 .stat .n{font-family:var(--serif);font-size:clamp(2.2rem,1.5rem+2vw,3.2rem);color:var(--gold);line-height:1}
 .stat .l{font-size:.8rem;letter-spacing:.06em;color:#aeb6bf;margin-top:.6rem;text-transform:uppercase}
 
 .practice-row{display:grid;grid-template-columns:auto 1fr auto;gap:clamp(1.2rem,3vw,3rem);align-items:start;
-  padding-block:clamp(2rem,4vw,3.2rem);border-top:1px solid #e0d9cb}
+  padding-block:clamp(2rem,4vw,3.2rem);border-top:1px solid #e0d9cb;position:relative;overflow:hidden}
+.practice-row::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gold);transform:scaleY(0);transform-origin:top;transition:transform .35s ease}
+.practice-row:hover::before{transform:scaleY(1)}
 .practice-row:last-child{border-bottom:1px solid #e0d9cb}
 .practice-row .idx{font-family:var(--serif);font-size:1.1rem;color:var(--gold-deep);padding-top:.4rem}
 .practice-row .pr-head h3{margin-bottom:.5rem}
@@ -192,9 +203,14 @@ p{margin:0 0 1.1em}
 .practice-row .idx{transition:color .25s}
 .practice-row:hover .idx{color:var(--gold)}
 /* scroll reveal */
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1)}
 .reveal.in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+.reveal .stat,.reveal .val,.reveal .member,.reveal .testi{opacity:0;transform:translateY(16px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
+.reveal.in .stat:nth-child(1),.reveal.in .val:nth-child(1),.reveal.in .member:nth-child(1),.reveal.in .testi:nth-child(1){opacity:1;transform:none;transition-delay:.1s}
+.reveal.in .stat:nth-child(2),.reveal.in .val:nth-child(2),.reveal.in .member:nth-child(2),.reveal.in .testi:nth-child(2){opacity:1;transform:none;transition-delay:.22s}
+.reveal.in .stat:nth-child(3),.reveal.in .val:nth-child(3),.reveal.in .member:nth-child(3),.reveal.in .testi:nth-child(3){opacity:1;transform:none;transition-delay:.34s}
+.reveal.in .stat:nth-child(4),.reveal.in .val:nth-child(4){opacity:1;transform:none;transition-delay:.46s}
+@media (prefers-reduced-motion:reduce){.reveal,.reveal .stat,.reveal .val,.reveal .member,.reveal .testi{opacity:1;transform:none;transition:none}}
 /* back to top */
 .to-top{position:fixed;right:1rem;bottom:1rem;z-index:90;width:46px;height:46px;border-radius:50%;
   background:var(--ink);color:var(--gold);border:1px solid var(--line);cursor:pointer;display:grid;
@@ -204,7 +220,8 @@ p{margin:0 0 1.1em}
 .to-top svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2}
 
 .testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.5rem,3vw,3rem);margin-top:2.5rem;align-items:start}
-.testi{margin:0;padding:0;position:relative}
+.testi{margin:0;padding:0;position:relative;transition:transform .3s ease}
+.testi:hover{transform:translateY(-4px)}
 .testi--center{border-left:1px solid var(--line);border-right:1px solid var(--line);padding-inline:clamp(1rem,2.5vw,2.5rem)}
 .testi-stars{color:var(--gold);font-size:.85rem;letter-spacing:.2em;margin-bottom:1.1rem}
 .testi-quote{font-family:var(--serif);font-size:clamp(1.1rem,1rem+.6vw,1.35rem);line-height:1.45;color:var(--bone);font-weight:400;font-style:normal;margin:0 0 1.2rem}
@@ -219,7 +236,9 @@ p{margin:0 0 1.1em}
 .cta-band h2{color:var(--bone);max-width:18ch;margin-inline:auto}
 .cta-band .lede{color:#c3c9d0;max-width:46ch;margin:1rem auto 2rem}
 .cta-band .lion-bg{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(70%,560px);
-  color:rgba(201,162,94,.06);z-index:1}
+  color:rgba(201,162,94,.06);z-index:1;animation:pulse-lion 6s ease-in-out infinite}
+@keyframes pulse-lion{0%,100%{opacity:.6;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.04)}}
+@media (prefers-reduced-motion:reduce){.cta-band .lion-bg{animation:none}}
 .cta-band .lion-bg svg{width:100%;height:100%}
 .cta-row{display:flex;gap:.9rem;justify-content:center;flex-wrap:wrap}
 
@@ -374,7 +393,7 @@ body.a11y-hideimg :is(.hero-media,.thesis-media,.attorney-photo,.member .ph){bac
       <p class="lede">A Miami law firm built around one idea: real estate, business, criminal, and intellectual property matters handled by a team that knows you — and fights for you.</p>
       <div class="hero-cta"><a class="btn btn--gold" href="#contact">Request a consultation <span class="arrow">→</span></a><a class="btn btn--on-dark" href="tel:+13058946750">Call 305.894.6750</a></div>
     </div></div>
-    <div class="hero-media"><img src="erik-lichter-attorney-miami.jpg" alt="Erik J. Lichter, Miami attorney and founder of The Lichter Law Group, before the firm's lion mural" fetchpriority="high"></div>
+    <div class="hero-media"><img src="erik-lichter-attorney-miami.jpg" alt="Erik J. Lichter, Miami attorney and founder of The Lichter Law Group, before the firm's lion mural" fetchpriority="high" width="1400" height="933" decoding="async"></div>
   </div>
   <div class="hero-strip"><div class="wrap">
     <span><b>5.0</b> Google rating</span><span class="dot"></span><span>Coconut Grove born &amp; raised</span><span class="dot"></span>
@@ -388,7 +407,7 @@ body.a11y-hideimg :is(.hero-media,.thesis-media,.attorney-photo,.member .ph){bac
     <p class="lede" style="margin:1.4rem 0">Most people don't have a different lawyer for every problem. The Lichter Law Group is built so you don't need one — bringing real estate, business, criminal, and intellectual property work under a single roof, with the same standard of care across all of it.</p>
     <p>We build lasting relationships rooted in trust and clear communication, so that whatever you bring us next, you're working with a firm that already understands you.</p>
     <a class="btn btn--ghost" href="#contact" style="margin-top:.8rem">Start a conversation <span class="arrow">→</span></a></div>
-  <div class="thesis-media"><img src="lichter-law-group-miami-office.jpg" alt="Erik J. Lichter outside The Lichter Law Group offices in the Blue Lagoon district of Miami"><span class="tag">Blue Lagoon · Miami</span></div>
+  <div class="thesis-media"><img src="lichter-law-group-miami-office.jpg" alt="Erik J. Lichter outside The Lichter Law Group offices in the Blue Lagoon district of Miami" width="1200" height="960" loading="lazy" decoding="async"><span class="tag">Blue Lagoon · Miami</span></div>
 </div></section>
 
 <section class="section section--ink"><div class="wrap"><div class="stats">
@@ -433,7 +452,7 @@ body.a11y-hideimg :is(.hero-media,.thesis-media,.attorney-photo,.member .ph){bac
   </div></div></section>
 
 <section class="section section--bone"><div class="wrap attorney">
-  <div class="attorney-photo"><img src="erik-lichter-attorney-miami.jpg" alt="Erik J. Lichter, Esq., founding attorney of The Lichter Law Group in Miami" style="object-position:center 20%"></div>
+  <div class="attorney-photo"><img src="erik-lichter-attorney-miami.jpg" alt="Erik J. Lichter, Esq., founding attorney of The Lichter Law Group in Miami" style="object-position:center 20%" width="1400" height="933" loading="lazy" decoding="async"></div>
   <div><div class="kicker eyebrow">The founder</div>
     <blockquote>"I grew up here. When I take your case, I'm representing a neighbor — and I bring everything I've got to it."</blockquote>
     <p>Erik J. Lichter is a born-and-bred Miamian from Coconut Grove who played football for the University of Miami Hurricanes — and brings that same passion and energy to every client's matter. His experience spans real estate, business, criminal, and intellectual property law, giving clients a single trusted resource across a wide range of needs.</p>
@@ -453,8 +472,8 @@ body.a11y-hideimg :is(.hero-media,.thesis-media,.attorney-photo,.member .ph){bac
 <section class="section section--slate"><div class="wrap">
   <div class="kicker eyebrow eyebrow--light">The team</div><h2 style="margin-bottom:2.5rem">The people behind the practice.</h2>
   <div class="team">
-    <div class="member"><figure><div class="ph"><img src="erik-lichter-lichter-law-group.jpg" alt="Erik J. Lichter, Esq., founding attorney, The Lichter Law Group"></div><figcaption><h3>Erik J. Lichter, Esq.</h3><p class="role">Founding Attorney</p></figcaption></figure></div>
-    <div class="member"><figure><div class="ph"><img src="genesis-williams-paralegal.jpg" alt="Genesis Williams, paralegal at The Lichter Law Group"></div><figcaption><h3>Genesis Williams</h3><p class="role">Paralegal</p></figcaption></figure></div>
+    <div class="member"><figure><div class="ph"><img src="erik-lichter-lichter-law-group.jpg" alt="Erik J. Lichter, Esq., founding attorney, The Lichter Law Group" width="800" height="1000" loading="lazy" decoding="async"></div><figcaption><h3>Erik J. Lichter, Esq.</h3><p class="role">Founding Attorney</p></figcaption></figure></div>
+    <div class="member"><figure><div class="ph"><img src="genesis-williams-paralegal.jpg" alt="Genesis Williams, paralegal at The Lichter Law Group" width="800" height="1000" loading="lazy" decoding="async"></div><figcaption><h3>Genesis Williams</h3><p class="role">Paralegal</p></figcaption></figure></div>
   </div>
   <p style="max-width:70ch;margin-top:2.2rem;color:#c3c9d0">As the firm's paralegal, Genesis Williams provides invaluable support to both our team and our clients; her interest in real estate and dedication to client satisfaction make her an essential part of the Lichter Law Group. We're also passionate about giving back — engaging in pro bono work and community initiatives across the South Florida that raised us.</p>
 </div></section>
@@ -525,7 +544,16 @@ body.a11y-hideimg :is(.hero-media,.thesis-media,.attorney-photo,.member .ph){bac
 <button class="a11y-fab" aria-label="Accessibility options" aria-expanded="false" aria-controls="a11y-panel"><svg viewBox="0 0 24 24"><circle cx="12" cy="3.8" r="2"/><path d="M21 8.5c0 .6-.5 1-1 1-1.6.1-3.7.2-5 .3v3.4c0 1 .2 2 .5 3l1.4 4.2c.2.6-.1 1.2-.7 1.4-.6.2-1.2-.1-1.4-.7l-1.5-4.6c-.1-.4-.7-.4-.8 0L11 21.6c-.2.6-.8.9-1.4.7-.6-.2-.9-.8-.7-1.4L10.3 17c.3-1 .5-2 .5-3v-3.4c-1.3-.1-3.4-.2-5-.3-.6 0-1-.5-1-1 0-.6.5-1 1.1-1 2.3.1 4.7.2 6.1.2s3.8-.1 6.1-.2c.6 0 1.1.4 1.1 1z"/></svg></button>
 <script>
 (function(){
- var nav=document.getElementById('nav'),mb=nav&&nav.querySelector('.menu-btn');
+ // Mast scroll shadow
+ var mast=document.querySelector('.mast');
+ if(mast)window.addEventListener('scroll',function(){mast.classList.toggle('scrolled',window.scrollY>40);},{passive:true});
+ // Kicker line animation
+ var kickers=[].slice.call(document.querySelectorAll('.kicker'));
+ if('IntersectionObserver' in window){
+   var ko=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');ko.unobserve(e.target);}});},{threshold:.3});
+   kickers.forEach(function(k){ko.observe(k);});
+ } else { kickers.forEach(function(k){k.classList.add('in');}); }
+,mb=nav&&nav.querySelector('.menu-btn');
  if(mb)mb.addEventListener('click',function(){var o=nav.classList.toggle('open');mb.setAttribute('aria-expanded',o);});
  // consent
  var CK='llg-consent';
